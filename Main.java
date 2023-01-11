@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-          DanielDias.sayName();
+        DanielDias.sayName();
         PauloVargas.sayName();
         AfonsoAlves.sayName();
         AndreMatias.sayName();
