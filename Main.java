@@ -16,8 +16,8 @@ public class Main {
         VascoBatista.sayName();
         ViniciusLuz.sayName();
         AntonioSantos.sayName();
-	MiguelLopes.sayName();
         TomasRodrigues.sayName();
-	IsabelSoares.sayName();
+        IsabelSoares.sayName();
+	      MiguelLopes.sayName();
 	}
 }
