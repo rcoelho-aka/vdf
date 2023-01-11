@@ -1,6 +1,5 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
         DanielDias.sayName();
         PauloVargas.sayName();
         AfonsoAlves.sayName();
@@ -17,14 +16,9 @@ public class Main {
         VascoBatista.sayName();
         ViniciusLuz.sayName();
         AntonioSantos.sayName();
-	    MiguelLopes.sayName();
+	MiguelLopes.sayName();
         TomasRodrigues.sayName();
         AndreMatias.sayName();
-	    IsabelSoares.sayName();
-        JoaoQuintaneiro.sayName();
-        FilipaNunes.sayName();
-        MariaCaldeira.sayName();
-        RicardoCoelho.sayName();
-        MartimViana.sayName();
+	IsabelSoares.sayName();
 	}
 }
