@@ -1,7 +1,7 @@
-public class MartimViana {
-
+public class MariaCaldeira {
     public static void sayName() {
-        Student student = new Student("Martim", "Viana");
+        Student student = new Student("Maria", "Caldeira");
+        
         System.out.print("My name is ");
         student.sayFirstName();
         System.out.print(" ");
