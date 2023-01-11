@@ -5,5 +5,6 @@ public class DanielDias {
         student.sayFirstName();
         System.out.print(" ");
         student.sayLastName();
+        System.out.print("!");
     }
 }
