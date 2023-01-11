@@ -3,6 +3,7 @@ public class Main {
         System.out.println("Hello world!");
         TomasRodrigues.sayName();
         AndreMatias.sayName();
+	IsabelSoares.sayName();
         JoaoQuintaneiro.sayName();
         FilipaNunes.sayName();
         MariaCaldeira.sayName();
