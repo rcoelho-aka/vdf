@@ -1,8 +1,6 @@
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        FilipeGuerreiro nome =  new FilipeGuerreiro("Filipe", "Guerreiro");
-
         FilipeGuerreiro.sayName();
 
     }
