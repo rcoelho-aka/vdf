@@ -1,22 +1,19 @@
 public class FilipeGuerreiro {
-    String firstName = "Filipe";
-    String lastName = "Guerreiro";
+    
+    public static void sayName(){
+        
+        Student student =  new Student("Filipe", "Guerreiro")
+        
+        System.out.println("My name is ");
+        
+        student.sayFirstName();
 
-    public FilipeGuerreiro(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+        System.out.println(" ");
 
-    public void sayFirstName() {
-        System.out.print(firstName);
-    }
+        student.sayLastName();
 
-    public void sayLastName() {
-        System.out.print(lastName);
-    }
+        System.out.println("!");
 
-    public void sayName(){
-        System.out.println("My name is " + firstName + " " + lastName);
     }
 
 }

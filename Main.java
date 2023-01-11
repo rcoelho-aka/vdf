@@ -3,7 +3,7 @@ public class Main {
         System.out.println("Hello world!");
         FilipeGuerreiro nome =  new FilipeGuerreiro("Filipe", "Guerreiro");
 
-        nome.sayName();
+        FilipeGuerreiro.sayName();
 
     }
 }
