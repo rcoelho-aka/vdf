@@ -16,7 +16,7 @@ public class FilipeGuerreiro {
     }
 
     public void sayName(){
-        System.out.println(firstName + " " + lastName);
+        System.out.println("My name is " + firstName + " " + lastName);
     }
 
 }
