@@ -1,4 +1,3 @@
-
 public class JoaoMarques {
     public static void sayName() {
         Student myName = new Student("Joao", "Marques");
@@ -11,4 +10,3 @@ public class JoaoMarques {
 
 
 }
-
