@@ -24,7 +24,5 @@ public class Main {
         MariaCaldeira.sayName();
         RicardoCoelho.sayName();
         MartimViana.sayName();
-        AfonsoAlves.sayName();
-        FilipeGuerreiro.sayName();
 	}
 }
