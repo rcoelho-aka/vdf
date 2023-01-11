@@ -4,7 +4,7 @@ public class Main {
 
         JoaoMarques showName = new JoaoMarques();
 
-        System.out.println("My name is: " + showName);
+        System.out.println("My name is: " + showName + "!");
 
     }
 }
