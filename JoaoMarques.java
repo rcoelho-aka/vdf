@@ -1,10 +1,12 @@
-
 public class JoaoMarques {
-    public Student showName() {
+    public static void sayName() {
         Student myName = new Student("Joao", "Marques");
-        return myName;
+
+        System.out.print("My name is : " );
+        myName.sayFirstName();
+        myName.sayLastName();
+        System.out.print("!");
     }
 
 
 }
-
