@@ -2,7 +2,9 @@ public class FilipeGuerreiro {
     
     public static void sayName(){
         
-        Student student =  new Student("Filipe", "Guerreiro")
+
+        Student student =  new Student("Filipe", "Guerreiro");
+
         
         System.out.println("My name is ");
         
