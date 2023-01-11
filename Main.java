@@ -6,7 +6,5 @@ public class Main {
         RicardoCoelho.sayName();
         MartimViana.sayName();
         AfonsoAlves.sayName();
-        PauloVargas.sayName();
-        AntonioSantos.sayName();
     }
 }
