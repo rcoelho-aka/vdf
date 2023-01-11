@@ -17,14 +17,7 @@ public class Main {
         VascoBatista.sayName();
         ViniciusLuz.sayName();
         AntonioSantos.sayName();
-	    MiguelLopes.sayName();
         TomasRodrigues.sayName();
-        AndreMatias.sayName();
-	    IsabelSoares.sayName();
-        JoaoQuintaneiro.sayName();
-        FilipaNunes.sayName();
-        MariaCaldeira.sayName();
-        RicardoCoelho.sayName();
-        MartimViana.sayName();
+        IsabelSoares.sayName();
 	}
 }
