@@ -18,7 +18,6 @@ public class Main {
         AntonioSantos.sayName();
 	MiguelLopes.sayName();
         TomasRodrigues.sayName();
-        AndreMatias.sayName();
 	IsabelSoares.sayName();
 	}
 }
