@@ -1,6 +1,6 @@
 
 public class JoaoMarques {
-    public Student showName() {
+    public Student sayName() {
         Student myName = new Student("Joao", "Marques");
         return myName;
     }
