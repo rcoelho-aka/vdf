@@ -15,4 +15,6 @@ public class Student {
     public void sayLastName() {
         System.out.print(lastName);
     }
+
+    public void sayFullName() {System.out.print("My name is " + firstName + " " + lastName + "!");}
 }
