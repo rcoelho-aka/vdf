@@ -8,5 +8,6 @@ public class Main {
         RicardoCoelho.sayName();
         MartimViana.sayName();
         AfonsoAlves.sayName();
+        FilipeGuerreiro.sayName();
     }
 }
