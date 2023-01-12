@@ -38,11 +38,11 @@ public class Main {
         System.out.println("\n");
         AntonioSantos.sayName();
         System.out.println("\n");
-	    MiguelLopes.sayName();
+	MiguelLopes.sayName();
         System.out.println("\n");
         TomasRodrigues.sayName();
         System.out.println("\n");
-	    IsabelSoares.sayName();
+	IsabelSoares.sayName();
         System.out.println("\n");
 	}
 
