@@ -6,15 +6,15 @@ public class FilipeGuerreiro {
         Student student =  new Student("Filipe", "Guerreiro");
 
         
-        System.out.println("My name is ");
+        System.out.print("My name is ");
         
         student.sayFirstName();
 
-        System.out.println(" ");
+        System.out.print(" ");
 
         student.sayLastName();
 
-        System.out.println("!");
+        System.out.print("!");
 
     }
 

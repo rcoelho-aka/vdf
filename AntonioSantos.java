@@ -6,6 +6,5 @@ public class AntonioSantos {
         System.out.print(" ");
         student.sayLastName();
         System.out.print("!");
-        System.out.print("!");
     }
 }
