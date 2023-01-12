@@ -1,46 +1,44 @@
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("Hello world!\n");
+        System.out.println("*** Hello TEAM ***\n");
         DanielDias.sayName();
-        System.out.println("\n");
+        System.out.println("");
         PauloVargas.sayName();
-        System.out.println("\n");
+        System.out.println("");
         AfonsoAlves.sayName();
-        System.out.println("\n");
+        System.out.println("");
         AndreMatias.sayName();
-        System.out.println("\n");
+        System.out.println("");
         FilipaNunes.sayName();
-        System.out.println("\n");
+        System.out.println("");
         FilipeGuerreiro.sayName();
-        System.out.println("\n");
+        System.out.println("");
         JoaoQuintaneiro.sayName();
-        System.out.println("\n");
+        System.out.println("");
         JoaquimLima.sayName();
-        System.out.println("\n");
+        System.out.println("");
         MarcosCaldeira.sayName();
-        System.out.println("\n");
+        System.out.println("");
         MariaCaldeira.sayName();
-        System.out.println("\n");
+        System.out.println("");
         JoaoMarques.sayName();
-        System.out.println("\n");
+        System.out.println("");
         MartimViana.sayName();
-        System.out.println("\n");
+        System.out.println("");
         MiguelLopes.sayName();
-        System.out.println("\n");
+        System.out.println("");
         RicardoCoelho.sayName();
-        System.out.println("\n");
+        System.out.println("");
         VascoBatista.sayName();
-        System.out.println("\n");
+        System.out.println("");
         ViniciusLuz.sayName();
-        System.out.println("\n");
+        System.out.println("");
         AntonioSantos.sayName();
-        System.out.println("\n");
-	MiguelLopes.sayName();
-        System.out.println("\n");
+        System.out.println("");
         TomasRodrigues.sayName();
-        System.out.println("\n");
+        System.out.println("");
 	IsabelSoares.sayName();
-        System.out.println("\n");
+        System.out.println("");
 	}
 }
