@@ -2,8 +2,6 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("Hello world!\n");
-
-
         DanielDias.sayName();
         System.out.println("\n");
         PauloVargas.sayName();
@@ -45,5 +43,4 @@ public class Main {
 	IsabelSoares.sayName();
         System.out.println("\n");
 	}
-
 }
