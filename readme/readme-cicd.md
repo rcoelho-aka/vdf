@@ -23,13 +23,13 @@ It's now time to create your first pipline.
 - It should be triggered manually
 - The pipeline should be organised in different stages to perform the following actions:
   - Get code from the repo using `git` command
-  - Package and test the app: `mvn clean package` (remember: this is a shell command, you should use `sh` to run it, like this: `sh "mvn clean package"`)
+  - Package and test the app: `mvn clean package` (remember: this is a shell command, you should use `sh` to run it.
   - Archive test results in jenkins (using junit plugin already installed): `junit '**/target/surefire-reports/TEST-*.xml'`
   - Build Docker image: `docker build -t ${env.DOCKER_TAG} .` 
     - `${env.DOCKER_TAG}` in above command refers to an environment variable that needs to be declared. The tag needs to follow this format exactly in order to be recognized by Heroku: `registry.heroku.com/${env.APP_NAME}/web` 
     - `${env.APP_NAME}` should have this format: `vdf-firstName-LastName`
     - Example of variable declaration: `env.APP_NAME = "vdf-ricardo-coelho"` (TIP: this is groovy syntax and needs to be used inside a script block)
-  - Push the image to registry. This will require authenticaton in the Heroku registry.
+  - Push the image to registry. This will require authenticaton in the Heroku registry:
     - Use withCredentials to read from jenkins credentials store and pass it to your script as an ENV variable.  `withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) { ... }`
     - Login in the registry. This command expects the API key to live in an ENV variable named "HEROKU_API_KEY": `heroku container:login`
     - And finally push the image to the registry: `docker push ${env.DOCKER_TAG}`
@@ -89,13 +89,18 @@ Change your Jenkins job so that the pipeline definition is now read from your re
 
 Save the pipeline and try making a new commit & push to your branch. The pipeline should start automatically (you'll need to wait 1 minute at most)
 
-# Step 5 - Have fun coding!
+# Step 5 - Deploy only on demand
+Modify your pipeline so that the deploy step is optional and only executes when the users chooses:
+- When executing the build manually in jenkins, it should prompt the user if it should also deploy the application
+- When executed automatically by SCM Pool, it should do everything except deploying the application
+
+# Step 6 - Have fun coding!
 Now that we have a cicd pipeline in place, let's do some coding!
 - Change the file done in previous git exercise (`FirstLast.java`) and modify it to act as a Rest Controller, exposing an endpoint `/first-last` that when called returns a Student object, in json format, with your details.
 - Check `RicardoCoelho.java` file for an example.
 - Commit your code and let the cicd pipeline do it's magic. You will be able to check the result by visiting your deployed app (example: https://vdf-ricardo-coelho.herokuapp.com/ricardo-coelho)
 
-# Step 6 - Adding some unit tests
+# Step 7 - Adding some unit tests
 - Add a unit test to test your controller. Check the file "RicardoCoelhoTest.java" for reference.
 - When the pipeline runs, you should be able to see the test result
 - Try adding a test that fails and confirm that the pipline fails without deploying the application
