@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Setup') {
+            steps {
+                script {
+                    env.APP_NAME = 'vdf-ricardo-coelho'
+                    env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
+                }
+                git(url: 'https://github.com/rcoelho-aka/vdf', branch: 'main')
+            }
+        }
+
+        stage('Build & Test') {
+            steps {
+                sh 'mvn clean package'
+                junit '**/target/surefire-reports/TEST-*.xml'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh "docker build -t ${env.DOCKER_TAG} ."
+            }
+        }
+
+        stage('Push to registry') {
+            steps {
+                withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                    sh 'heroku container:login'
+                    sh "docker push ${env.DOCKER_TAG}"
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                    sh "heroku container:release web -a ${env.APP_NAME}"
+                }
+            }
+        }
+
+    }
+}
