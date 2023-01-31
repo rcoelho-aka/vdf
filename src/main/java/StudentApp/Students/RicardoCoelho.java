@@ -10,6 +10,9 @@ public class RicardoCoelho {
 
     @GetMapping("/ricardo-coelho")
 	public Student index() {
+		String firstName = "Ricardo";
+		String lastName = "Coelho";
+
 		return student;
 	}
 }

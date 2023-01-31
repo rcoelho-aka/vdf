@@ -7,8 +7,17 @@ pipeline {
                 script {
                     env.APP_NAME = 'vdf-ricardo-coelho'
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
+                    sh 'env | sort'
                 }
-                git(url: 'https://github.com/rcoelho-aka/vdf', branch: 'main')
+                checkout scm
+            }
+        }
+
+        stage('Sonar Cloud Check') {
+            steps {
+                withCredentials([string(credentialsId: 'sonarcloud-key', variable: 'SONAR_TOKEN')]) {
+                    sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=$GIT_BRANCH'
+                }
             }
         }
 
