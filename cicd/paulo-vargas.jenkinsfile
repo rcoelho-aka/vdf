@@ -7,7 +7,7 @@ pipeline {
                 script {
                     env.APP_NAME = "vdf-paulo-vargas"
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
-                    git branch: "paulo-vargas", url: 'https://github.com/rcoelho-aka/vdf'
+                    checkout scm
                 }
             }
         }
