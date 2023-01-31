@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Setup & Clone Repo') {
+            steps {
+                
+                  script {
+                    // declare variables that are used in next steps
+                    env.APP_NAME = "vdf-vasco-batista"
+                    env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
+                }
+
+                git url: 'https://github.com/rcoelho-aka/vdf/' , branch:'vasco-batista'
+                
+                sh "ls"
+            
+        }
+
+
+    }
+}
+}
