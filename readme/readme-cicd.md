@@ -13,6 +13,8 @@ Some useful tips:
 - To package the application (generate a jar file): `mvn clean package`
   - This will also run the tests, use `-Dmaven.test.skip` to skip tests
   - The generated jar will be in `target` folder
+- To build a local docker image: `docker build .`
+- To run the docker image locally: `docker run --env PORT=8080 -p 8080:8080 <hash>` where hash is the sha256 returned by the docker build command
 
 If everything is ok, push your changes to Github (to your branch)
 
