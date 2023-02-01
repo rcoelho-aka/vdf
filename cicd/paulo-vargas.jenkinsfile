@@ -53,7 +53,7 @@ pipeline {
 
         stage ('deploying') {
             when {
-                expression { env.BUILD_CAUSE_SCMTRIGGER != "SCMTRIGGER"}
+                expression { env.BUILD_CAUSE_SCMTRIGGER == null}
             } 
             steps {
                 script {
