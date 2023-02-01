@@ -11,7 +11,7 @@ Pipeline{
                 }
 
                 script {
-                    sh "git clone --branch 'Filipa-Nunes' 'https://github.com/rcoelho-aka/vdf.git'"
+                    sh checkout scm
 
                 }
 
