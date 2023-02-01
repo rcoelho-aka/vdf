@@ -1,0 +1,65 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Setup & Clone Repo') {
+            steps {
+                script {
+                    // declare variables that are used in next steps
+                    env.APP_NAME = "vdf-tomas-rodrigues"
+                    env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
+                }
+                //git branch: 'tomas-rodrigues', url: 'https://github.com/rcoelho-aka/vdf'
+                //sh "git clone 'https://github.com/rcoelho-aka/vdf.git' --branch 'tomas-rodrigues'"
+                // TODO: Clone repo
+            }
+        }
+        stage('Build') {
+            steps {
+                // Get some code from a GitHub repository
+                git branch: 'tomas-rodrigues', url: 'https://github.com/rcoelho-aka/vdf'
+
+                // Run Maven on a Unix agent.
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
+                }
+            }
+        }
+        stage('Docker build') {
+            steps{
+                script{
+                    sh ("docker build -t ${env.DOCKER_TAG} .")
+                }
+            }
+        }
+        stage('Push to registry') { 
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                        sh ("heroku container:login")
+                        sh ("docker push ${env.DOCKER_TAG}")
+                    }    
+                }
+            }
+        }
+        stage('Deploy') { 
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                        sh ("heroku container:release web -a ${env.APP_NAME}")
+                    }
+                }
+            }
+        }
+    }
+}
