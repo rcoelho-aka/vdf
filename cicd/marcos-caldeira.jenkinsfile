@@ -54,11 +54,18 @@ pipeline {
         }
 
         stage('Deploy') { 
-	    
+	    when {
+		expression: {
+			env.DEPLOY == 'yes'
+
+		}
+
+
+	    }
+
             steps{
                 
 		script{
-			if(env.DEPLOY == 'yes'){
                 		
 				withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]){
 
@@ -66,7 +73,7 @@ pipeline {
 
                 		}
 
-                 	}
+                 	
 		}
                 
 
