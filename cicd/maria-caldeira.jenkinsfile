@@ -48,7 +48,24 @@ pipeline {
                 }
             }
         }
+
+        stage('Input') {
+            when {
+                not {
+                    triggeredBy ("SCMTrigger")
+                }
+            }
+            steps {
+                input message: 'Ready to deploy?'
+            }
+        }
+
         stage('Deploy') {
+            when {
+                not {
+                    triggeredBy ("SCMTrigger")
+                }
+            }
             steps{
                 script{
                     withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
