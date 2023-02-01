@@ -60,7 +60,7 @@ pipeline {
 			steps {
 				script {
 					withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
-						heroku container:release web -a ${env.APP_NAME}"
+						heroku container:release web -a ${env.APP_NAME}
 					}
 				}
 			}
