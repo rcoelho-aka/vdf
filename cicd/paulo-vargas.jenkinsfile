@@ -38,7 +38,19 @@ pipeline {
                 sh "docker push ${env.DOCKER_TAG}"
             }
         }
-        stage ('deploying') {
+        stage ('input checks') {
+            when {
+                expression { 
+                    env.BUILD_CAUSE_SCMTRIGGER == null 
+                    }
+            }
+            steps {
+                input message: 'Tens a certeza que queres fazer deploy?', parameters: [choice(choices: ['Yes', 'No'], name: 'Userinput')]
+            }
+        }
+
+
+        stage ('deploying') { 
             steps {
                 script {
                     withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
