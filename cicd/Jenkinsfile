@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "M3"
+    }
+
+    stages {
+        stage('Setup') {
+            node {
+                // Get Git Code manually
+				//git(url: "${REPOSITORY}", credentialsId: 'xpc', branch: "${branch}")
+				script {
+                    // declare variables that are used in next steps
+                    env.DOCKER_TAG = "registry.heroku.com/${APP_NAME}/web"
+				}
+			    //Clone Repo
+				Checkout scm
+            }
+        }
+
+        stage('Maven build & test') {
+            withMaven {
+                // Run Maven
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+
+            post {
+                junit '**/target/surefire-reports/TEST-*.xml'
+            }
+        }
+
+        stage('Docker build') {
+            sh "docker build -t ${env.DOCKER_TAG}"
+        }
+
+        stage('Push to registry') {
+            withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                sh "heroku container:login"
+                sh "docker push ${DOCKER_TAG}"
+            }
+        }
+
+        stage('Deploy') {
+            withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                sh "heroku container:release web -a ${APP_NAME}"
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
