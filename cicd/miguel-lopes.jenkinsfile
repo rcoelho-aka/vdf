@@ -1,0 +1,43 @@
+pipeline{
+    agent any
+    stages{
+        stage('Setup and Clone Repo'){
+            steps{
+
+                script {
+                    // declare variables that are used in next steps
+                    env.APP_NAME = "vdf-miguel-lopes"
+                    env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
+                }
+
+                git branch: 'miguel-lopes', url: 'https://github.com/rcoelho-aka/vdf'
+
+            }
+        }
+        stage('Maven Build and Test'){
+            steps{
+                sh 'mvn clean package'
+
+                 junit '**/target/surefire-reports/TEST-*.xml'
+            }
+        }
+        stage('Docker Build'){
+            steps{
+                 sh "docker build -t ${env.DOCKER_TAG} ."
+            }
+        }
+        stage('Push to Registry'){
+            steps{
+               withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                  sh "heroku container:login"
+                  sh "docker push ${env.DOCKER_TAG}"
+               }
+            }
+        }
+        stage('Deploy'){
+            steps{
+                sh "heroku container:release web -a ${env.APP_NAME}"
+            }
+        }
+    }
+}
