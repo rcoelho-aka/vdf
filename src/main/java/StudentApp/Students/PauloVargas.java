@@ -12,4 +12,9 @@ public class PauloVargas {
     public Student index() {
         return student;
     }
+
+    @GetMapping("/paulo-vargas/test")
+    public String test() {
+        return "test";
+    }
 }

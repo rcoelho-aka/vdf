@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(PauloVargas.class)
-class PauloVargas {
+class PauloVargasTest {
 
     @Autowired
     private MockMvc mockMvc;
