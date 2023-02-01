@@ -51,17 +51,18 @@ pipeline {
 
         stage('Deploy') {
             steps{
-                if (!triggeredBy ("SCMTrigger")){
-                    def approved = false
-                    echo "deploy"
-                    if (approved){
-                        withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
-                            sh "heroku container:release web -a ${env.APP_NAME}"
+                script {
+                    if (!triggeredBy ("SCMTrigger")){
+                        def approved = false
+                        if (approved){
+                            withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                                echo "deploy"
+                                sh "heroku container:release web -a ${env.APP_NAME}"
+                            }
                         }
                     }
                 }
             }
-
         }
     }
 }
