@@ -1,5 +1,6 @@
 pipeline{
     agent any
+
     stages{
         stage('Setup and Clone Repo'){
             steps{
@@ -8,6 +9,7 @@ pipeline{
                     // declare variables that are used in next steps
                     env.APP_NAME = "vdf-miguel-lopes"
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
+                    deploy_run = false
                 }
 
                 checkout scm
@@ -35,6 +37,12 @@ pipeline{
             }
         }
         stage('Deploy'){
+            	when {
+            				expression {
+            				    env.DEPLOY == "Yes"
+            				}
+
+            			}
             steps{
                 sh "heroku container:release web -a ${env.APP_NAME}"
             }
