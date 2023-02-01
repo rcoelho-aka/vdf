@@ -47,19 +47,17 @@ pipeline {
             }
             
         }
-
-
-        stage('Deploy') {
-            steps{
+        stage ('Deploy') {
+            when {
+                not {
+                    triggeredBy ("SCMTrigger")
+                }
+            }
+            steps {
                 script {
-                    if (!triggeredBy ("SCMTrigger")){
-                        def approved = false
-                        if (approved){
-                            withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
-                                echo "deploy"
-                                sh "heroku container:release web -a ${env.APP_NAME}"
-                            }
-                        }
+                    withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                        sh "heroku container:login"
+                        sh "heroku container:release web -a ${env.APP_NAME}"
                     }
                 }
             }
