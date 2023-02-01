@@ -58,7 +58,7 @@ pipeline {
             steps{
                 
 		script{
-			if(env.DEPLOY == true){
+			if(env.DEPLOY == 'yes'){
                 		
 				withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]){
 
