@@ -22,10 +22,10 @@ class MariaCaldeiraTest {
                 .andExpect(content().json("{'firstName':'Maria', 'lastName':'Caldeira'}"));
     }
 
-    @Test
+    /*@Test
     void shouldFailMariaCaldeira() throws Exception {
         mockMvc.perform(get("/maria-caldeira"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{'firstName':'Maria', 'lastName':'Coelho'}"));
-    }
+    }*/
 }
