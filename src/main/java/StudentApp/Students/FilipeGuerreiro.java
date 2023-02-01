@@ -1,6 +1,10 @@
 package StudentApp.Students;
 import StudentApp.Student;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
 public class FilipeGuerreiro {
     
     public static void sayName(){
@@ -8,8 +12,20 @@ public class FilipeGuerreiro {
 
         Student student =  new Student("Filipe", "Guerreiro");
 
-        
-        System.out.print("My name is ");
+        @GetMapping("/filipe-guerreiro")
+        public Student index() {
+            return student;
+        }
+
+        @GetMapping("/filipe-guerreiro/test")
+	        public String test() {
+		    return "test";
+	    }
+
+
+
+
+        /*System.out.print("My name is ");
         
         student.sayFirstName();
 
@@ -17,7 +33,7 @@ public class FilipeGuerreiro {
 
         student.sayLastName();
 
-        System.out.print("!");
+        System.out.print("!");*/
 
     }
 
