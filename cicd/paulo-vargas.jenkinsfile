@@ -38,7 +38,7 @@ pipeline {
                 sh "docker push ${env.DOCKER_TAG}"
             }
         }
-        stage ('input checks') {
+/*        stage ('input checks') {
             steps {
                 script {
                     if (env.BUILD_CAUSE_SCMTRIGGER == "true" || env.BUILD_CAUSE == "SCMTRIGGER") {
@@ -48,10 +48,13 @@ pipeline {
                     }
                 }
             }
-        }
+        } */
 
 
-        stage ('deploying') { 
+        stage ('deploying') {
+            when {
+                expression { env.BUILD_CAUSE_SCMTRIGGER != "SCMTRIGGER"}
+            } 
             steps {
                 script {
                     withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
