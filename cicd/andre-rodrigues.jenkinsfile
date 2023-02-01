@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                        // declare variables that are used in next steps
+                        env.APP_NAME = "vdf-andre-rodrigues"
+                        env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
+                    }
+                git url: 'https://github.com/rcoelho-aka/vdf/', branch:'andre-rodrigues'
+                
+                sh 'mvn clean package'
+                
+                junit '**/target/surefire-reports/TEST-*.xml'
+                
+                sh "docker build -t ${env.DOCKER_TAG} ."
+            }
+        }
+        
+        stage('push') {
+            steps {
+                    withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) { 
+                        
+                        sh "heroku container:login"
+                        
+                        sh "docker push ${env.DOCKER_TAG}"
+                        
+                        sh "heroku container:release web -a ${env.APP_NAME}"
+                        
+                    }
+                
+                }
+        }
+    }
+}
+
