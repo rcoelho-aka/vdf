@@ -40,7 +40,7 @@ pipeline {
         }
         stage ('Input') {
             when {
-                triggeredBy (!"SCMTrigger")
+                triggeredBy ("SCMTrigger")
             }
             steps {
                 script {
