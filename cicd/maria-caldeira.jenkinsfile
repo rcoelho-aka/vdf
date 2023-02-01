@@ -49,7 +49,7 @@ pipeline {
             }
         }
 
-        stage('Input') {
+        stage('Prompt for input') {
             when {
                 not {
                     triggeredBy ("SCMTrigger")
