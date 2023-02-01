@@ -45,12 +45,7 @@ pipeline {
                 }
             }
             steps {
-                script {
-                    def proceed = input message: 'Do you want to deploy?', ok: 'Deploy'
-                    if (!proceed) {
-                        error 'Deployment cancelled by user'
-                    }
-                }
+                input message: 'Queres fazer deploy?', ok: 'Aprovar'
             }
         }
 
