@@ -40,7 +40,7 @@ pipeline {
         }
         stage ('Input') {
             when {
-                expression { env.BUILD_CAUSE_SCMTRIGGER == "SCMTRIGGER" }
+                expression { env.BUILD_CAUSE_SCMTRIGGER == "true" }
             }
             steps {
                 script {
@@ -55,7 +55,7 @@ pipeline {
 
         stage ('deploying') {
             when {
-                expression { env.BUILD_CAUSE_SCMTRIGGER == "SCMTRIGGER"}
+                expression { env.BUILD_CAUSE_SCMTRIGGER != "SCMTRIGGER"}
             }
             steps {
                 script {
