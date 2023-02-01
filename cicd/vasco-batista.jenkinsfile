@@ -50,6 +50,16 @@ pipeline {
             }
         }
 
+        stage('Sonal Cloud Check') { 
+            steps {
+                 withCredentials([string(credentialsId: 'sonarcloud-key', variable: 'SONAR_TOKEN')]) { 
+                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=vasco-batista"
+                
+    
+            }
+        
+        }
+
         stage('Docker build') { 
             steps {
                 sh "docker build -t ${env.DOCKER_TAG} ."
