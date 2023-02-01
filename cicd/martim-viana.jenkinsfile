@@ -35,7 +35,6 @@ pipeline {
 			steps {
 				script {
 					withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
-						sh "heroku container:login"
 						sh "docker push ${env.DOCKER_TAG}"
 					}
 				}
@@ -60,7 +59,8 @@ pipeline {
 			steps {
 				script {
 					withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
-						heroku container:release web -a ${env.APP_NAME}
+						sh "heroku container:login"
+						sh "heroku container:release web -a ${env.APP_NAME}"
 					}
 				}
 			}
