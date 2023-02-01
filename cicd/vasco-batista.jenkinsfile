@@ -18,6 +18,10 @@ pipeline {
                  // check repo
                 sh "ls"
 
+                echo env.APP_NAME
+                echo env.DOCKER_TAG
+                echo env.DEPLOY
+
                 
             
             }
@@ -27,9 +31,7 @@ pipeline {
         stage('Maven build & test') {
             steps {
                    
-                echo env.APP_NAME
-                echo env.DOCKER_TAG
-                echo env.DEPLOY
+
                 sh "mvn clean package"
                 
                 //junit '**/target/surefire-reports/TEST-*.xml'
@@ -73,7 +75,7 @@ pipeline {
         stage('Deploy') { 
             when {
                 // Only say hello if a "greeting" is requested
-                expression { env.DEPLY == "Yes" }
+                expression { env.DEPLOY == "Yes" }
             }
 
             steps {
