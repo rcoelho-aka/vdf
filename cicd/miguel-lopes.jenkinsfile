@@ -10,7 +10,7 @@ pipeline{
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
                 }
 
-                git branch: 'miguel-lopes', url: 'https://github.com/rcoelho-aka/vdf'
+                checkout scm
 
             }
         }
