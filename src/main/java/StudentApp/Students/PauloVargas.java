@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PauloVargas {
     Student student = new Student("Paulo", "Vargas");
 
-    @GetMapping
+    @GetMapping("/paulo-vargas")
     public Student index() {
         return student;
     }
