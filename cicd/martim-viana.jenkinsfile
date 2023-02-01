@@ -12,7 +12,7 @@ pipeline {
 					env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
 				}
 				//git branch: 'martim_viana', url: 'https://github.com/rcoelho-aka/vdf.git'
-				git checkout scm
+				checkout scm
 			}
 		}
 		stage ("Maven build & test") {
