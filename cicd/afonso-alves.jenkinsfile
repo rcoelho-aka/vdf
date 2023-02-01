@@ -10,7 +10,7 @@ pipeline {
                 script {
                     env.APP_NAME = "vdf-afonso-alves"
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
-
+                    // Get some code from a GitHub repository
                     checkout scm
                 }
             }
@@ -20,13 +20,11 @@ pipeline {
 
             steps {
 
-                dir("vdf") {
-                    // Run Maven on a Unix agent.
-                    sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                // Run Maven on a Unix agent.
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"
 
-                    // To run Maven on a Windows agent, use
-                    // bat "mvn -Dmaven.test.failure.ignore=true clean package"
-                }
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
 
             }
 
@@ -35,7 +33,7 @@ pipeline {
                 // failed, record the test results and archive the jar file.
                 success {
                     junit '**/target/surefire-reports/TEST-*.xml'
-                    archiveArtifacts 'vdf/target/*.jar'
+                    archiveArtifacts 'target/*.jar'
                 }
             }
         }
@@ -43,9 +41,7 @@ pipeline {
         stage('Docker build') {
 
             steps {
-                dir("vdf") {
-                    sh """docker build -t ${DOCKER_TAG} ."""
-                }
+                sh """docker build -t ${DOCKER_TAG} ."""
             }
 
         }
