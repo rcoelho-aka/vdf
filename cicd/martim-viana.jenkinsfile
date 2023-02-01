@@ -13,7 +13,7 @@ pipeline {
 				}
 				//git branch: 'martim_viana', url: 'https://github.com/rcoelho-aka/vdf.git'
 				checkout scm
-				
+
 			}
 		}
 		stage ("Maven build & test") {
@@ -41,7 +41,22 @@ pipeline {
 				}
 			}
 		}
+		stage ('Input') {
+            when {
+                not {
+                    triggeredBy("SCMTrigger")
+                }
+            }
+            steps {
+                input message: 'Do you want to deploy?(y/n)', ok: 'y'
+            }
+        }
 		stage("Deploy") {
+			when {
+				not {
+					triggeredBy("SCMTrigger")
+				}
+			}
 			steps {
 				script {
 					withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
