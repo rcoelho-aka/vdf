@@ -41,7 +41,7 @@ pipeline {
         stage ('input checks') {
             steps {
                 script {
-                    if (env.BUILD_CAUSE_SCMTRIGGER == "SCMTRIGGER" || env.BUILD_CAUSE == "SCMTRIGGER") {
+                    if (env.BUILD_CAUSE_SCMTRIGGER == "true" || env.BUILD_CAUSE == "SCMTRIGGER") {
                         currentBuild.result = 'ABORTED'
                     } else {
                         input message: 'Tens a certeza que queres fazer deploy?', parameters: [choice(choices: ['Yes', 'No'], name: 'Userinput')]
