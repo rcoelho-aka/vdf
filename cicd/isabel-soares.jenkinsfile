@@ -1,0 +1,75 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Setup & Clone Repo') {
+            steps {
+
+                cleanWs()
+
+                script {
+                    env.APP_NAME = "vdf-isabel-soares"
+                    env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
+                }
+
+                script {
+                    // Get some code from a GitHub repository
+                    sh "git clone --branch 'isabel-soares' 'https://github.com/rcoelho-aka/vdf.git'"
+                }
+            }
+        }
+
+        stage('Maven build & test') {
+
+            steps {
+
+                dir("vdf") {
+                    // Run Maven on a Unix agent.
+                    sh "mvn -Dmaven.test.failure.ignore=true clean package"
+
+                    // To run Maven on a Windows agent, use
+                    // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+                }
+
+            }
+
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'vdf/target/*.jar'
+                }
+            }
+        }
+
+        stage('Docker build') {
+
+            steps {
+                dir("vdf") {
+                    sh """docker build -t ${DOCKER_TAG} ."""
+                }
+            }
+
+        }
+
+        stage('Push to registry') {
+
+            steps {
+                withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                    sh "heroku container:login"
+                    sh """docker push ${DOCKER_TAG}"""
+                }
+            }
+        }
+
+        stage('Deploy') {
+
+            steps {
+                withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                    sh """heroku container:release web -a ${env.APP_NAME}"""
+                }
+            }
+        }
+    }
+}
