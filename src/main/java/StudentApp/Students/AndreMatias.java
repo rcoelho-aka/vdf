@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RicardoCoelho {
+public class AndreMatias {
     Student student = new Student("Andre", "Matias");
 
     @GetMapping("/andre-matias")
