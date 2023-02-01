@@ -40,7 +40,7 @@ pipeline {
         }
         stage ('Input') {
             when {
-                expression { env.BUILD_CAUSE_SCMTRIGGER == null }
+                expression { env.BUILD_CAUSE_SCMTRIGGER != null }
             }
             steps {
                 script {
