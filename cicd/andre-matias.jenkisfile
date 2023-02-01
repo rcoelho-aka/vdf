@@ -44,6 +44,17 @@ pipeline {
             
         }
 
+
+        stage ('Approve') {
+            when {
+                not {
+                    triggeredBy ("SCMTrigger")
+                }
+            }
+            steps {
+                input message: 'Deploy?', ok: 'Lezzgo'
+            }
+        }
         stage ('Deploy') {
             when {
                 not {
@@ -52,6 +63,13 @@ pipeline {
             }
             steps {
                 script {
+                    def approved = false
+                    try{
+                        approval.requestInputApproval '2', 'HOURS', "Do you want to deploy??", 'Please confirm.', "Deployment..."
+                        approved = true
+                    }catch(e){
+                        log.warning "Approval was not given for deployment..."
+                    }
                     withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
                         sh "heroku container:login"
                         sh "heroku container:release web -a ${env.APP_NAME}"
