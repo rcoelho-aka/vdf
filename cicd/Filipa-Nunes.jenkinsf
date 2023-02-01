@@ -11,7 +11,7 @@ Pipeline{
                 }
 
                 script {
-                    sh checkout scm
+                    checkout scm
 
                 }
 
