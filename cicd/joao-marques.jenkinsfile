@@ -20,7 +20,7 @@ pipeline {
                 sh "mvn clean package"
                 //junit '**/target/surefire-reports/TEST-*.xml'
             }
-        }
+        } 
 
         stage('Docker build') {
             steps {
