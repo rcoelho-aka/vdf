@@ -21,7 +21,7 @@ pipeline {
                 //junit '**/target/surefire-reports/TEST-*.xml'
             }
         }
-        
+
         stage('Docker build') {
             steps {
                 sh "docker build -t ${env.DOCKER_TAG} ."
@@ -42,3 +42,4 @@ pipeline {
             }
         }
     }
+}
