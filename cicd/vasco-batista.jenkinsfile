@@ -10,13 +10,15 @@ pipeline {
                     env.APP_NAME = "vdf-vasco-batista"
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
                     env.HEROKU_API_KEY = "heroku container:login"
-                    env.DEPLY = "No"
+                    
                     }
                  // Clone repo
                 //git url: 'https://github.com/rcoelho-aka/vdf/' , branch:'vasco-batista'
                 checkout scm
                  // check repo
                 sh "ls"
+
+                
             
             }
         }
@@ -27,6 +29,7 @@ pipeline {
                    
                 echo env.APP_NAME
                 echo env.DOCKER_TAG
+                echo env.DEPLOY
                 sh "mvn clean package"
                 
                 //junit '**/target/surefire-reports/TEST-*.xml'
