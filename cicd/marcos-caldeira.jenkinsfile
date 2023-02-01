@@ -55,7 +55,7 @@ pipeline {
 
         stage('Deploy') { 
 	    when {
-		expression: {
+		expression {
 			env.DEPLOY == 'yes'
 		}
 
