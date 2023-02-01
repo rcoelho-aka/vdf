@@ -53,7 +53,13 @@ pipeline {
             }
         }
         stage('Deploy') { 
-            steps{
+			when {
+				expression {
+				    env.DEPLOY == "Yes"
+				}
+				
+			}
+			steps{
                 script{
                     withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
                         sh ("heroku container:release web -a ${env.APP_NAME}")
