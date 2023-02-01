@@ -9,7 +9,8 @@ pipeline {
                         env.APP_NAME = "vdf-andre-rodrigues"
                         env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
                     }
-                sh 'checkout scm'
+                    
+                checkout scm
                 
                 sh 'mvn clean package'
                 
