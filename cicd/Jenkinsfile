@@ -30,7 +30,7 @@ pipeline {
 
         stage('Docker build') {
             steps{
-                sh "docker build -t ${env.DOCKER_TAG}"
+                sh "docker build -t ${env.DOCKER_TAG} ."
             }
         }
 
