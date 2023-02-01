@@ -11,7 +11,7 @@ pipeline {
                 }
                 echo "clone"
                 //git branch: 'andre-matias', url: 'https://github.com/rcoelho-aka/vdf'
-                git checkout scm
+                checkout scm
             }
         }
 
