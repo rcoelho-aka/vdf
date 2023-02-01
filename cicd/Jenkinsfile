@@ -16,7 +16,7 @@ pipeline {
                     env.DOCKER_TAG = "registry.heroku.com/${APP_NAME}/web"
 				}
 			    //Clone Repo
-				Checkout scm
+				checkout scm
             }
         }
 
