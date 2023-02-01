@@ -12,5 +12,9 @@ public class IsabelSoares {
         return student;
     }
 
+    @GetMapping("/isabel-soares/test")
+    public String test() {
+        return "test";
+    }
 
 }
