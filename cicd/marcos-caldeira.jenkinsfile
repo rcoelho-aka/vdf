@@ -20,6 +20,7 @@ pipeline {
             
             steps {
                 
+		sh("mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=$GIT_BRANCH")
                 sh("mvn clean package")
                 junit '**/target/surefire-reports/TEST-*.xml'
                 
