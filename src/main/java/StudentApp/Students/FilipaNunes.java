@@ -12,6 +12,11 @@ public class FilipaNunes {
     public Student index() {
         return student;
     }
+
+    @GetMapping("/filipa-nunes/test")
+    public String test() {
+        return "test";
+    }
 }
 
 
