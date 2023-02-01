@@ -56,8 +56,9 @@ pipeline {
                     sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=vasco-batista"
                 
     
-            }
+               }
         
+            }
         }
 
         stage('Docker build') { 
