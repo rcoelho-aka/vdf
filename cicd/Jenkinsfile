@@ -8,7 +8,7 @@ pipeline {
 
     stages {
         stage('Setup') {
-            node {
+            steps{
                 // Get Git Code manually
 				//git(url: "${REPOSITORY}", credentialsId: 'xpc', branch: "${branch}")
 				script {
@@ -21,30 +21,38 @@ pipeline {
         }
 
         stage('Maven build & test') {
-            withMaven {
-                // Run Maven
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
-            }
+            steps{
+                withMaven {
+                    // Run Maven
+                    sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                }
 
-            post {
-                junit '**/target/surefire-reports/TEST-*.xml'
+                post {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                }
             }
         }
 
         stage('Docker build') {
-            sh "docker build -t ${env.DOCKER_TAG}"
+            steps{
+                sh "docker build -t ${env.DOCKER_TAG}"
+            }
         }
 
         stage('Push to registry') {
-            withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
-                sh "heroku container:login"
-                sh "docker push ${DOCKER_TAG}"
+            steps{
+                withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                    sh "heroku container:login"
+                    sh "docker push ${DOCKER_TAG}"
+                }
             }
         }
 
         stage('Deploy') {
-            withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
-                sh "heroku container:release web -a ${APP_NAME}"
+            steps{
+                withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                    sh "heroku container:release web -a ${APP_NAME}"
+                }
             }
         }
     }
