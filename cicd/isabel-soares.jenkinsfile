@@ -20,9 +20,13 @@ pipeline {
 
             steps {
 
-                // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
 
+                // Run Maven on a Unix agent.
+                sh "mvn clean package"
+
+                withCredentials([string(credentialsId: 'sonarcloud-key', variable: 'SONAR_TOKEN')]) {
+                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=$GIT_BRANCH"
+                }
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
 
