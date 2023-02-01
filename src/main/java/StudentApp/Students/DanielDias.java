@@ -1,13 +1,16 @@
 package StudentApp.Students;
 import StudentApp.Student;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class DanielDias {
-    public static void sayName (){
-        Student student = new Student("Daniel", "Dias");
-        System.out.print("My Name is ");
-        student.sayFirstName();
-        System.out.print(" ");
-        student.sayLastName();
-        System.out.print("!");
+
+    Student student = new Student("Daniel", "Dias");
+
+    @GetMapping("/daniel-dias")
+    public Student index (){
+        return student;
     }
+
 }

@@ -18,7 +18,7 @@ pipeline {
         stage('Maven build & test') {
             steps{
                 // Run Maven
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                sh "mvn clean package"
             }
 
             post {
