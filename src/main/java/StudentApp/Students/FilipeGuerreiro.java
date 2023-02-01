@@ -6,14 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class FilipeGuerreiro {
-    
-    public static void sayName(){
         
-
         Student student =  new Student("Filipe", "Guerreiro");
 
         @GetMapping("/filipe-guerreiro")
-        public Student index() {
+        
+        public Student index(){
             return student;
         }
 
@@ -22,19 +20,5 @@ public class FilipeGuerreiro {
 		    return "test";
 	    }
 
-
-
-
-        /*System.out.print("My name is ");
-        
-        student.sayFirstName();
-
-        System.out.print(" ");
-
-        student.sayLastName();
-
-        System.out.print("!");*/
-
-    }
 
 }
