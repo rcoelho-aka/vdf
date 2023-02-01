@@ -11,15 +11,6 @@ pipeline {
                 }
             }
         }
-        stage('SonarCloud Build') {
-            steps {
-                script{
-                    withCredentials([string(credentialsId: 'sonarcloud-key', variable: 'SONAR_TOKEN')]) {
-                        sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=$GIT_BRANCH'
-                    }
-                }
-            }
-        }
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
@@ -27,7 +18,11 @@ pipeline {
                 checkout scm
 
                 // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                sh "mvn clean package"
+
+                withCredentials([string(credentialsId: 'sonarcloud-key', variable: 'SONAR_TOKEN')]) {
+                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=$GIT_BRANCH"
+                }
 
             }
 
