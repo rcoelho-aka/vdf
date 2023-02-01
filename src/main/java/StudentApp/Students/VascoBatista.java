@@ -15,7 +15,7 @@ public class VascoBatista {
 
 	@GetMapping("/vasco-batista/test")
 	public String test() {
-		return "test";
+		return "########## Vasco Baptista #############";
 	}
 
 }
