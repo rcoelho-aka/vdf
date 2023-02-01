@@ -1,0 +1,80 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Setup & Clone Repo') {
+            steps {
+                
+                  script {
+                    // declare variables that are used in next steps
+                    env.APP_NAME = "vdf-vasco-batista"
+                    env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
+                    }
+                 // Clone repo
+                git url: 'https://github.com/rcoelho-aka/vdf/' , branch:'vasco-batista'
+                 // check repo
+                sh "ls"
+            
+            }
+        }
+  
+
+        stage('Maven build & test') {
+            steps {
+                   
+                echo env.APP_NAME
+                echo env.DOCKER_TAG
+                sh "mvn clean package"
+                
+            //junit '**/target/surefire-reports/TEST-*.xml'
+               
+                
+                
+                
+            }
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    sh "ls -larth target/surefire-reports"
+                }
+            }
+        }
+
+        stage('Docker build') { 
+            steps {
+                sh "docker build -t ${env.DOCKER_TAG} ."
+                
+                
+            }
+        
+        }
+
+        stage('Push to registry') { 
+            steps {
+                withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) { 
+                    sh "docker push ${env.DOCKER_TAG}"
+
+
+                 }
+                
+                
+            }
+        
+        }
+
+        stage('Deploy') { 
+            steps {
+                withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) { 
+
+                    sh "heroku container:release web -a ${env.APP_NAME}" 
+                }
+                
+            }
+        
+        }
+
+        
+    }
+}
