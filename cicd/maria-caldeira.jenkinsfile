@@ -14,7 +14,8 @@ pipeline {
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git branch: 'maria-caldeira', url: 'https://github.com/rcoelho-aka/vdf'
+                //git branch: 'maria-caldeira', url: 'https://github.com/rcoelho-aka/vdf'
+                checkout scm
 
                 // Run Maven on a Unix agent.
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
