@@ -129,7 +129,7 @@ And add to your pipeline a step executing the check:
   - NOTE that we pass the branch we are building in the command. The environment variable `GIT_BRANCH` already exists, it is set automatically by Jenkins.
 - This maven command needs an environment variable named "SONAR_TOKEN" for authentication. To to this you can again use `withCredentials` step. A credential with the token is available in this Jenkins with the *credentialsId* `sonarcloud-key`.
 
-If everything works as expected, you should be able to see the results of the scan here: https://sonarcloud.io/project/branches_list?id=coelho-aka_vdf
+If everything works as expected, you should be able to see the results of the scan here: https://sonarcloud.io/project/branches_list?id=rcoelho-aka_vdf
 
 # Step 9 - Generate test coverage report and send it to SonarCloud
 Sonarcloud does not run our tests, thay run in the pipeline. In order for SonarCloud calculate the test coverage, we need to generate the coverage report.
