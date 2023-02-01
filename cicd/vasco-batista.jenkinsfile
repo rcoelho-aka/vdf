@@ -10,6 +10,7 @@ pipeline {
                     env.APP_NAME = "vdf-vasco-batista"
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
                     env.HEROKU_API_KEY = "heroku container:login"
+                    env.DEPLY = "No"
                     }
                  // Clone repo
                 //git url: 'https://github.com/rcoelho-aka/vdf/' , branch:'vasco-batista'
@@ -67,7 +68,14 @@ pipeline {
         }
 
         stage('Deploy') { 
+            when {
+                // Only say hello if a "greeting" is requested
+                expression { env.DEPLY == "Yes" }
+            }
+
             steps {
+                
+
                 withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) { 
 
                     sh "heroku container:release web -a ${env.APP_NAME}" 
