@@ -54,9 +54,9 @@ pipeline {
 
 
         stage ('deploying') {
-            /*when {
-                expression { env.BUILD_CAUSE_SCMTRIGGER == null}
-            } */
+            when {
+                expression { env.BUILD_CAUSE_SCMTRIGGER != null}
+            }
             steps {
                 script {
                     withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
