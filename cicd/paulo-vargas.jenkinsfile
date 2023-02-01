@@ -38,23 +38,25 @@ pipeline {
                 sh "docker push ${env.DOCKER_TAG}"
             }
         }
-/*        stage ('input checks') {
+        stage ('Input') {
+            when {
+                expression { env.BUILD_CAUSE_SCMTRIGGER == null }
+            }
             steps {
                 script {
-                    if (env.BUILD_CAUSE_SCMTRIGGER == "true" || env.BUILD_CAUSE == "SCMTRIGGER") {
-                        currentBuild.result = 'ABORTED'
-                    } else {
-                        input message: 'Tens a certeza que queres fazer deploy?', parameters: [choice(choices: ['Yes', 'No'], name: 'Userinput')]
+                    def proceed = input message: 'Do you want to deploy?', ok: 'Deploy'
+                    if (!proceed) {
+                        error 'Deployment cancelled by user'
                     }
                 }
             }
-        } */
+        }
 
 
         stage ('deploying') {
-            when {
+            /*when {
                 expression { env.BUILD_CAUSE_SCMTRIGGER == null}
-            } 
+            } */
             steps {
                 script {
                     withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
