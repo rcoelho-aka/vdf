@@ -17,8 +17,8 @@ pipeline{
         stage('Maven Build and Test'){
             steps{
                 sh 'mvn clean package'
-
-                 junit '**/target/surefire-reports/TEST-*.xml'
+                
+                junit '**/target/surefire-reports/TEST-*.xml'
             }
         }
         stage('Docker Build'){
