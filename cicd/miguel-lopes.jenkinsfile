@@ -9,7 +9,7 @@ pipeline{
                     // declare variables that are used in next steps
                     env.APP_NAME = "vdf-miguel-lopes"
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
-                    env.DEPLOY = "No"
+
                 }
 
                 checkout scm
