@@ -1,0 +1,70 @@
+pipeline {
+    agent any
+
+    stages {
+        stage ('Setup & Clone repo') {
+            steps {
+                script {
+                    env.APP_NAME = "vdf-paulo-vargas"
+                    env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
+                    checkout scm
+                }
+            }
+        }
+        stage ('Maven build & test') {
+            steps {
+                sh "mvn clean package"
+                junit '**/target/surefire-reports/TEST-*.xml'
+                archiveArtifacts 'target/*.jar'
+            }
+        }
+        stage ('Dockerzzz') {
+            steps {
+                sh "docker build -t ${env.DOCKER_TAG} ." 
+            }
+        }
+        stage ('auth maybe?') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                        sh "echo $HEROKU_API_KEY"
+                        sh "heroku container:login"
+                    }
+                }
+            }
+        }
+        stage ('push docker') {
+            steps {
+                sh "docker push ${env.DOCKER_TAG}"
+            }
+        }
+        stage ('Input') {
+            when {
+                not {
+                    triggeredBy ("SCMTrigger")
+                }
+            }
+            steps {
+                input message: 'Queres fazer deploy?', ok: 'Aprovar'
+            }
+        }
+
+
+        stage ('deploying') {
+            when {
+                not {
+                    triggeredBy ("SCMTrigger")
+                }
+            }
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                        sh "heroku container:login"
+                        sh "heroku container:release web -a ${env.APP_NAME}" 
+                    }
+                }
+            }
+        }
+    }
+}
+// testing automatic jenkins build on commit
