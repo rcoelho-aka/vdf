@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-        def approved = false
         stage('Setup & Clone Repo') {
             steps {
                 script {
@@ -10,6 +9,7 @@ pipeline {
                     env.APP_NAME = "vdf-andre-matias"
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
                 }
+                def approved = false
                 echo "clone"
                 //git branch: 'andre-matias', url: 'https://github.com/rcoelho-aka/vdf'
                 checkout scm
@@ -22,6 +22,7 @@ pipeline {
 
         stage('Maven build & test') {
             steps{
+                def approved = false
                 echo "mvn build and test"
                 sh 'mvn clean package'
                 junit '**/target/surefire-reports/TEST-*.xml'
@@ -31,6 +32,7 @@ pipeline {
 
         stage('Docker build') {
             steps{
+                def approved = false
                 echo "docker build"
                 sh "docker build -t ${env.DOCKER_TAG} ."
                 sh "docker build -t ${env.DOCKER_TAG} ."
@@ -40,6 +42,7 @@ pipeline {
 
         stage('Push to registry') {
             steps{
+                def approved = false
                 echo "push registryt"
                 withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
                     sh 'heroku container:login'
@@ -51,6 +54,7 @@ pipeline {
 
         stage('Deploy') {
             steps{
+                def approved = false
                 echo "deploy"
                 withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
                     sh "heroku container:release web -a ${env.APP_NAME}"
