@@ -11,7 +11,7 @@ pipeline {
                 }
 
                 // TODO: Clone repo
-                git branch: 'marcos-caldeira', url: 'https://github.com/rcoelho-aka/vdf'
+                checkout scm
 
             }
         }
