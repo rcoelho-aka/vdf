@@ -13,6 +13,7 @@ pipeline {
 				}
 				//git branch: 'martim_viana', url: 'https://github.com/rcoelho-aka/vdf.git'
 				checkout scm
+				
 			}
 		}
 		stage ("Maven build & test") {
