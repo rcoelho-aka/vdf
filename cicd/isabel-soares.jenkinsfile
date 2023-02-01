@@ -12,7 +12,7 @@ pipeline {
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
 
                     // Get some code from a GitHub repository
-                    sh "git checkout scm"
+                    checkout scm
                 }
             }
         }
