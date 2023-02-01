@@ -20,8 +20,10 @@ pipeline {
                 echo "mvn build and test"
                 sh 'mvn clean package'
                 junit '**/target/surefire-reports/TEST-*.xml'
+                withCredentials([string(credentialsId: 'sonarcloud-key', variable: 'SONAR_TOKEN')]) {
+                    sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=$GIT_BRANCH'
+                }
             }
-            
         }
 
         stage('Docker build') {
@@ -43,8 +45,6 @@ pipeline {
             }
             
         }
-
-
         stage ('Approve') {
             when {
                 not {
