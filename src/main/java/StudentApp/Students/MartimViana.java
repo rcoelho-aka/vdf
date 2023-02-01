@@ -1,9 +1,4 @@
 package StudentApp.Students;
-
-public class MartimViana {
-    
-}
-package StudentApp.Students;
 import StudentApp.Student;
 
 public class MartimViana {
