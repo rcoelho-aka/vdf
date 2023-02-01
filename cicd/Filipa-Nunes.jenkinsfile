@@ -15,17 +15,14 @@ pipeline {
         }
         stage('Maven build & test') {
             steps {
-                    dir('vdf'){
-                        sh "mvn clean package"
-                        junit '**/target/surefire-reports/TEST-*.xml'
-                        }
+                sh "mvn clean package"
+                junit '**/target/surefire-reports/TEST-*.xml'
+
             }
         }
         stage('Docker build') {
             steps{
-                dir('vdf'){
-                    sh "docker build -t ${env.DOCKER_TAG} ."
-                    }
+                sh "docker build -t ${env.DOCKER_TAG} ."
             }
         }
         stage('Push to registry') {
