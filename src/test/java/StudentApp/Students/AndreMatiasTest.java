@@ -19,6 +19,6 @@ class AndreMatiasTest {
     void shouldReturnAndreMatias() throws Exception {
         mockMvc.perform(get("/andre-matias"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("{'firstName':'Andre', 'lastName':'Matiasssss'}"));
+                .andExpect(content().json("{'firstName':'Andre', 'lastName':'Matias'}"));
     }
 }
