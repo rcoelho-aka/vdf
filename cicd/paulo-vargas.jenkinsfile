@@ -18,6 +18,15 @@ pipeline {
                 archiveArtifacts 'target/*.jar'
             }
         }
+        stage ('Sonar Cloud verification') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'sonarcloud-key', variable 'SONAR_TOKEN')]) {
+                        sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=$GIT_BRANCH"
+                    }
+                }
+            }
+        }
         stage ('Dockerzzz') {
             steps {
                 sh "docker build -t ${env.DOCKER_TAG} ." 
