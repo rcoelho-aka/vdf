@@ -17,10 +17,8 @@ pipeline {
 
         stage('Maven build & test') {
             steps{
-                withMaven {
-                    // Run Maven
-                    sh "mvn -Dmaven.test.failure.ignore=true clean package"
-                }
+                // Run Maven
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"
 
                 post {
                     junit '**/target/surefire-reports/TEST-*.xml'
