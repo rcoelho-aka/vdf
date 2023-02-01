@@ -10,7 +10,8 @@ pipeline {
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
                 }
                 echo "clone"
-                git branch: 'andre-matias', url: 'https://github.com/rcoelho-aka/vdf'
+                //git branch: 'andre-matias', url: 'https://github.com/rcoelho-aka/vdf'
+                git checkout scm
             }
         }
 
