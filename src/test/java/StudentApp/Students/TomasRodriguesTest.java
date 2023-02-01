@@ -15,9 +15,15 @@ public class TomasRodriguesTest {
     private MockMvc mockMvc;
 
     @Test
-    void shouldReturnRicardoCoelho() throws Exception {
+    void shouldReturnTomasRodrigues() throws Exception {
         mockMvc.perform(get("/tomas-rodrigues"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{'firstName':'Tomás', 'lastName':'Rodrigues'}"));
+    }
+    @Test
+    void shouldReturnError() throws Exception {
+        mockMvc.perform(get("/tomas-rodrigues"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{'firstName':'ola', 'lastName':'ola'}"));
     }
 }
