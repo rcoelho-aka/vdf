@@ -7,16 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FilipaNunes {
     Student student = new Student("Filipa", "Nunes");
-
     @GetMapping("/filipa-nunes")
     public Student index() {
         return student;
     }
 
-    @GetMapping("/filipa-nunes/test")
-    public String test() {
-        return "test";
-    }
 }
 
 
