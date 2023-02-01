@@ -40,7 +40,9 @@ pipeline {
         }
         stage ('Input') {
             when {
-                triggeredBy ("SCMTrigger")
+                not {
+                    triggeredBy ("SCMTrigger")
+                }
             }
             steps {
                 script {
@@ -55,7 +57,9 @@ pipeline {
 
         stage ('deploying') {
             when {
-                expression { env.BUILD_CAUSE_SCMTRIGGER != "SCMTRIGGER"}
+                not {
+                    triggeredBy ("SCMTrigger")
+                }
             }
             steps {
                 script {
