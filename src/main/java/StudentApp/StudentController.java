@@ -10,5 +10,4 @@ public class StudentController {
 	public String index() {
 		return "Greetings from Spring Boot!";
 	}
-
 }

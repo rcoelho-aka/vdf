@@ -12,9 +12,18 @@ pipeline {
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
                     // Get some code from a GitHub repository
                     checkout scm
+                    sh 'env | sort'
                 }
             }
         }
+
+         stage('Sonar Cloud Check') {
+            steps {
+                withCredentials([string(credentialsId: 'sonarcloud-key', variable: 'SONAR_TOKEN')]) {
+                    sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=$GIT_BRANCH'
+                }
+            }
+         }
 
         stage('Maven build & test') {
 
