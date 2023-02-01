@@ -8,7 +8,7 @@ public class StudentController {
 
 	@GetMapping("/")
 	public String index() {
-		return "Greetings from Spring Boot!\n\n  Vasco Baptista was here !!! ";
+		return "Greetings from Spring Boot! ###  Vasco Baptista was here !!! ###";
 	}
 
 }
