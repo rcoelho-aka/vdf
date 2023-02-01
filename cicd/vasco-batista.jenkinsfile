@@ -12,7 +12,8 @@ pipeline {
                     env.HEROKU_API_KEY = "heroku container:login"
                     }
                  // Clone repo
-                git url: 'https://github.com/rcoelho-aka/vdf/' , branch:'vasco-batista'
+                //git url: 'https://github.com/rcoelho-aka/vdf/' , branch:'vasco-batista'
+                checkout scm
                  // check repo
                 sh "ls"
             
