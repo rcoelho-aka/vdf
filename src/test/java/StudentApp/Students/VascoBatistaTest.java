@@ -21,4 +21,11 @@ class VascoBatistaTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("{'firstName':'Vasco', 'lastName':'Baptista'}"));
     }
+
+    @Test
+    void shouldReturnVascoBatistaTest() throws Exception {
+        mockMvc.perform(get("/vasco-batista/test"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("########## Vasco Baptista #############"));
+    }
 }
