@@ -9,7 +9,7 @@ pipeline {
                         env.APP_NAME = "vdf-andre-rodrigues"
                         env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
                     }
-                git url: 'https://github.com/rcoelho-aka/vdf/', branch:'andre-rodrigues'
+                sh 'checkout scm'
                 
                 sh 'mvn clean package'
                 
