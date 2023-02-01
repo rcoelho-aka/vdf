@@ -10,9 +10,7 @@ pipeline {
                 script {
                     env.APP_NAME = "vdf-isabel-soares"
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
-                }
 
-                script {
                     // Get some code from a GitHub repository
                     sh "git checkout scm"
                 }
