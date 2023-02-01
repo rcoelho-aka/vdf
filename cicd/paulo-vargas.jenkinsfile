@@ -40,7 +40,7 @@ pipeline {
         }
         stage ('Input') {
             when {
-                expression { env.BUILD_CAUSE_SCMTRIGGER == "true" }
+                triggeredBy (!"SCMTrigger")
             }
             steps {
                 script {
