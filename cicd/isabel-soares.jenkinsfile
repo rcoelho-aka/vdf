@@ -21,6 +21,11 @@ pipeline {
 
             steps {
 
+                script {
+                    sh "ls -l"
+                    sh "ls -l ./vdf"
+                    sh "ls -l ./scm"
+                }
                 dir("vdf") {
                     // Run Maven on a Unix agent.
                     sh "mvn -Dmaven.test.failure.ignore=true clean package"
