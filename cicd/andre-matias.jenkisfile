@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+        def approved = false
         stage('Setup & Clone Repo') {
             steps {
                 script {
@@ -12,6 +13,10 @@ pipeline {
                 echo "clone"
                 //git branch: 'andre-matias', url: 'https://github.com/rcoelho-aka/vdf'
                 checkout scm
+
+                if (triggeredBy ("SCMTrigger")){
+                    echo "A culpa é do git"
+                }
             }
         }
 
