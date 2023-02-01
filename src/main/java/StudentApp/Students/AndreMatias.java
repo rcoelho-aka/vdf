@@ -13,9 +13,4 @@ public class AndreMatias {
         return student;
     }
 
-    @GetMapping("/andre-matias/test")
-    public String test() {
-        return "VAMOOOO";
-    }
-
 }
