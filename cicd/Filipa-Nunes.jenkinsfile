@@ -17,6 +17,7 @@ pipeline {
             steps {
                 sh "mvn clean package"
                 junit '**/target/surefire-reports/TEST-*.xml'
+                archiveArtifacts 'target/*.jar'
 
             }
         }
@@ -33,7 +34,22 @@ pipeline {
                 }
             }
         }
+        stage ('Input') {
+                        when {
+                            not {
+                                triggeredBy ("SCMTrigger")
+                            }
+                        }
+                        steps {
+                            input message: 'deploy?', ok: 'ok'
+                        }
+                    }
         stage('Deploy') {
+            when {
+                not {
+                    triggeredBy ("SCMTrigger")
+                    }
+            }
             steps{
                 withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]){
                     sh("heroku container:release web -a ${env.APP_NAME}")
