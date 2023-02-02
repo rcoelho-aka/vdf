@@ -15,7 +15,7 @@ public class JoaoQuintaneiro {
     private MockMvc mockMvc;
 
     @Test
-    void shouldReturnRicardoCoelho() throws Exception {
+    void shouldReturnJoaoQuintaneiro() throws Exception {
         mockMvc.perform(get("/joao-quintaneiro"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{'firstName':'Joao', 'lastName':'Quintaneiro'}"));
