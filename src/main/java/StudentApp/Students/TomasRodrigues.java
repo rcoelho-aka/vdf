@@ -12,6 +12,6 @@ public class TomasRodrigues {
     public Student index() {
         return student;
     }
-
+    @GetMapping("/teste")
     public Student test() {return student1; }
 }

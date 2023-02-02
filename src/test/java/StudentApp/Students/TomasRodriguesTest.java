@@ -20,6 +20,13 @@ public class TomasRodriguesTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("{'firstName':'Tomás', 'lastName':'Rodrigues'}"));
     }
+    @Test
+    void shouldReturnTeste() throws Exception {
+        mockMvc.perform(get("/teste"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{'firstName':'Teste', 'lastName':'Teste1'}"));
+    }
+    //Teste usado para ver o build falhar na fase 7
     /*@Test
     void shouldReturnError() throws Exception {
         mockMvc.perform(get("/tomas-rodrigues"))
