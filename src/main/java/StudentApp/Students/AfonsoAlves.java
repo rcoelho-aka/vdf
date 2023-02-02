@@ -12,9 +12,4 @@ public class AfonsoAlves {
     public Student index() {
         return student;
     }
-
-    @GetMapping("/afonso-alves/test")
-    public String test() {
-        return "test";
-    }
 }
