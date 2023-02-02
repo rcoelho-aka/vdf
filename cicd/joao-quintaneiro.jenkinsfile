@@ -1,0 +1,48 @@
+pipeline {
+    
+    agent any
+    
+    stages {
+        stage('Setup & Clone Repo') {
+            steps {
+                cleanWs()
+                script {
+                    env.APP_NAME = "vdf-joao-quintaneiro"                    
+                    env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
+                    checkout scm
+                    
+                }
+            }
+        }
+        stage('Maven build & test') { 
+            steps {
+                    dir('vdf'){
+                        sh "mvn clean package"                        
+                        junit '**/target/surefire-reports/TEST-*.xml'                    
+                        
+                    }
+            }
+        }
+        stage('Docker build') {  
+            steps{
+                dir('vdf'){
+                    sh "docker build -t ${env.DOCKER_TAG} ."                }
+            }
+        } 
+        stage('Push to registry') {  
+            steps{
+                withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]){
+                    sh("heroku container:login")
+                    sh("docker push ${env.DOCKER_TAG}")
+                }
+            }
+        }
+        stage('Deploy') { 
+            steps{
+                withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]){
+                    sh("heroku container:release web -a ${env.APP_NAME}")
+                }
+            }
+        }
+    }
+}
