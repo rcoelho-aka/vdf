@@ -4,6 +4,7 @@ import StudentApp.Student;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class AfonsoAlves {
     Student student = new Student("Afonso", "Alves");
 
