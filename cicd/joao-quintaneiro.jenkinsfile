@@ -33,6 +33,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]){
                     sh("heroku container:login")
                     sh("docker push ${env.DOCKER_TAG}")
+                    
                 }
             }
         }
