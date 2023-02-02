@@ -1,0 +1,53 @@
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Setup & Clone Repo') {
+            steps {
+                script {
+                    // declare variables that are used in next steps
+                    env.APP_NAME = "vdf-andre-ribeiro"
+                    env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
+                }
+
+                checkout scm
+            }
+        }
+
+        stage('Maven build & test') {
+            sh "mvn clean package"
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
+                }
+            }
+        }
+
+        stage('Docker build') {
+            step{
+                sh "docker build -t ${env.DOCKER_TAG}"
+            }
+        }
+
+        stage('Push to registry') {
+            script{
+                withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
+                    sh "heroku container:login"
+                }
+            }
+
+        }
+
+        stage('Deploy'){
+            withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {q
+                    sh "heroku container:release web -a ${env.APP_NAME}"
+                }
+        }
+
+    }
+
+
