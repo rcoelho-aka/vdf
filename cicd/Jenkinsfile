@@ -15,6 +15,10 @@ pipeline {
             }
         }
 
+        stage('SonarCloud') {
+
+        }
+
         stage('Maven build & test') {
             steps{
                 // Run Maven
