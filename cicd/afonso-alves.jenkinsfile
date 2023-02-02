@@ -2,54 +2,87 @@ pipeline {
     agent any
 
     stages {
-        stage('Setup') {
+        stage('Setup & Clone Repo') {
             steps {
+
+                cleanWs()
+
                 script {
-                    env.APP_NAME = 'vdf-afonso-alves'
+                    env.APP_NAME = "vdf-afonso-alves"
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
-                    sh 'env | sort'
+                    // Get some code from a GitHub repository
+                    checkout scm
                 }
-                checkout scm
             }
         }
 
-        stage('Sonar Cloud Check') {
+        stage('Maven build & test') {
+
             steps {
+
+
+                // Run Maven on a Unix agent.
+                sh "mvn clean package"
+
                 withCredentials([string(credentialsId: 'sonarcloud-key', variable: 'SONAR_TOKEN')]) {
-                    sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=$GIT_BRANCH'
+                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=$GIT_BRANCH"
+                }
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+
+            }
+
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
                 }
             }
         }
 
-        stage('Build & Test') {
-            steps {
-                sh 'mvn clean package'
-                junit '**/target/surefire-reports/TEST-*.xml'
-            }
-        }
+        stage('Docker build') {
 
-        stage('Docker Build') {
             steps {
-                sh "docker build -t ${env.DOCKER_TAG} ."
+                sh """docker build -t ${DOCKER_TAG} ."""
             }
+
         }
 
         stage('Push to registry') {
+
             steps {
                 withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
-                    sh 'heroku container:login'
-                    sh "docker push ${env.DOCKER_TAG}"
+                    sh "heroku container:login"
+                    sh """docker push ${DOCKER_TAG}"""
                 }
+            }
+        }
+
+        stage('Input') {
+
+            when {
+                not {
+                    triggeredBy ("SCMTrigger")
+                }
+            }
+            steps {
+                input message: 'Ready to deploy?'
             }
         }
 
         stage('Deploy') {
+            when {
+                not {
+                    triggeredBy ("SCMTrigger")
+                }
+            }
             steps {
                 withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
-                    sh "heroku container:release web -a ${env.APP_NAME}"
+                    sh """heroku container:release web -a ${env.APP_NAME}"""
                 }
             }
         }
-
     }
 }
