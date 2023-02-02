@@ -42,7 +42,7 @@ pipeline {
             }
         }
 
-        /*stage ('Sonar Cloud') {
+        stage ('Sonar Cloud') {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'sonarcloud-key', variable: 'SONAR_TOKEN')]) {
@@ -50,7 +50,7 @@ pipeline {
                     }
                 }
             }
-        }*/
+        }
 
         stage('Docker build') {
 
