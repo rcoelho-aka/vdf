@@ -42,6 +42,14 @@ pipeline {
             }
         }
 
+        /*stage('SonarCloud') {
+            steps{
+                withCredentials([string(credentialsId: 'sonarcloud-key', variable: 'SONAR_TOKEN')]) {
+                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=$GIT_BRANCH"
+                }
+            }
+        }*/
+
         stage('Docker build') {
 
             steps {
