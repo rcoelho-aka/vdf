@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TomasRodrigues {
     Student student = new Student("Tomás", "Rodrigues");
+    Student student1 = new Student("Teste", "Teste1");
 
     @GetMapping("/tomas-rodrigues")
     public Student index() {
         return student;
     }
+
+    public Student test() {return student1; }
 }
