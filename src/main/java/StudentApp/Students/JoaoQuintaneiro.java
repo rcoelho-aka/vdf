@@ -13,10 +13,5 @@ public class JoaoQuintaneiro {
 	public Student index() {
 		return student;
 	}
-
-    @GetMapping("/joao-quintaneiro/test")
-	public String test() {
-		return "test";
-	}
 }
 
