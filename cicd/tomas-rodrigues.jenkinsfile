@@ -54,13 +54,11 @@ pipeline {
             }
         }
         stage('Deploy') { 
-			when {
-				expression {
-				    env.DEPLOY == "Yes"
-				}
-				
-			}
+			
 			steps{
+				
+				input message: "Do you want to deploy", ok: "Continue"
+				
                 script{
                     withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
                         sh ("heroku container:release web -a ${env.APP_NAME}")
@@ -68,5 +66,10 @@ pipeline {
                 }
             }
         }
+		//stage('SonarCloud') {
+			
+			
+			
+		//}
     }
 }
