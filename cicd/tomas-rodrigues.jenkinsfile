@@ -14,6 +14,13 @@ pipeline {
                 // TODO: Clone repo
             }
         }
+		stage('SonarCloud') {
+			
+			withCredentials([string(credentialsId: 'sonarcloud-key', variable: 'SONAR_TOKEN')]) {
+				
+				sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=$GIT_BRANCH"
+			}
+		}
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
@@ -66,10 +73,5 @@ pipeline {
                 }
             }
         }
-		//stage('SonarCloud') {
-			
-			
-			
-		//}
     }
 }
