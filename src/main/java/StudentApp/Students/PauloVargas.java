@@ -17,4 +17,9 @@ public class PauloVargas {
     public String test() {
         return "test";
     }
+
+   @GetMapping("/paulo-vargas/skrrt")
+    public String skkrt() {
+        return "skrrrrrrrrrt";
+    }
 }
