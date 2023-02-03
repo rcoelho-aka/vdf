@@ -15,11 +15,11 @@ public class PauloVargas {
 
     @GetMapping("/paulo-vargas/test")
     public String test() {
-        return "test";
+        return "Teste teste 123, isto está ligado?";
     }
 
    @GetMapping("/paulo-vargas/skrrt")
-    public String skkrt() {
+    public String skrrt() {
         return "skrrrrrrrrrt";
     }
 }

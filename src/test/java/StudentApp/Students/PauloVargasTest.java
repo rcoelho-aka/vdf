@@ -26,7 +26,7 @@ class PauloVargasTest {
     void shouldReturnTest() throws Exception {
         mockMvc.perform(get("/paulo-vargas/test"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("test"));
+                .andExpect(content().string("Teste teste 123, isto está ligado?"));
     }
 
     @Test
