@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage ('Setup & Clone repo') {
+        stage ('Setup & Clone Repository') {
             steps {
                 script {
                     env.APP_NAME = "vdf-antonio-santos"
@@ -12,7 +12,7 @@ pipeline {
             checkout scm            
             }
         }
-        stage ('Maven build & test') {
+        stage ('Maven PAckage & test') {
             steps {
                 sh "mvn clean package"
                 junit '**/target/surefire-reports/TEST-*.xml'
@@ -28,12 +28,12 @@ pipeline {
                 }
             }
         }
-        stage ('Dockerzzz') {
+        stage ('Docker Build') {
             steps {
                 sh "docker build -t ${env.DOCKER_TAG} ." 
             }
         }
-        stage ('auth maybe?') {
+        stage ('Heroku') {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'heroku-key', variable: 'HEROKU_API_KEY')]) {
@@ -58,7 +58,7 @@ pipeline {
                 input message: 'Queres fazer deploy?', ok: 'Aprovar'
             }
         }
-        stage ('deploying') {
+        stage ('Deploying if Manual') {
             when {
                 not {
                     triggeredBy ("SCMTrigger")

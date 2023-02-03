@@ -1,9 +1,8 @@
 package StudentApp.Students;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import StudentApp.Student;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AntonioSantos {
     Student student = new Student("Antonio", "Santos");
@@ -12,7 +11,7 @@ public class AntonioSantos {
     public Student index(){
         return student;
     }
-    
+
     @GetMapping("/antonio-santos/test")
     public String test(){
         return "test";
