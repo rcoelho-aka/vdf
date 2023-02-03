@@ -6,9 +6,9 @@ pipeline {
             steps {
                 script {
                     env.APP_NAME = "vdf-antonio-santos"
-                    env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
-                    checkout scm
+                    env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"                                        
                 }
+            git branch: "antonio-santos", url: 'https://github.com/rcoelho-aka/vdf'
             }
         }
         stage ('Maven build & test') {

@@ -5,8 +5,12 @@ pipeline {
         stage ('Setup & Clone repo') {
             steps {
                 script {
-                    env.APP_NAME = "vdf-paulo-vargas"
+                    env.APP_NAME = "vdf-antonio-santos"
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"
+                    [Yesterday 18:34] Paulo Vargas, Vodafone
+ git branch: "paulo-vargas", url: 'https://github.com/rcoelho-aka/vdf'
+
+
                     checkout scm
                 }
             }
