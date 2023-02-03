@@ -9,7 +9,7 @@ pipeline {
                     env.DOCKER_TAG = "registry.heroku.com/${env.APP_NAME}/web"                                        
                 }
             //git branch: "antonio-santos", url: 'https://github.com/rcoelho-aka/vdf'
-            checkout scm
+            checkout scm            
             }
         }
         stage ('Maven build & test') {
@@ -17,6 +17,15 @@ pipeline {
                 sh "mvn clean package"
                 junit '**/target/surefire-reports/TEST-*.xml'
                 archiveArtifacts 'target/*.jar'
+            }        
+        }
+        stage ("Sonacloud"){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'sonarcloud-key', variable: 'SONAR_TOKEN')]) {                        
+                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.branch.name=$GIT_BRANCH" 
+                    }
+                }
             }
         }
         stage ('Dockerzzz') {
@@ -49,8 +58,6 @@ pipeline {
                 input message: 'Queres fazer deploy?', ok: 'Aprovar'
             }
         }
-
-
         stage ('deploying') {
             when {
                 not {
@@ -66,5 +73,6 @@ pipeline {
                 }
             }
         }
+
     }
 }
