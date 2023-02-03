@@ -25,6 +25,13 @@ class PauloVargasTest {
     @Test
     void shouldReturnTest() throws Exception {
         mockMvc.perform(get("/paulo-vargas/test"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("test"));
+    }
+
+    @Test
+    void skrrrtTest() throws Exception {
+        mockMvc.perform(get("/paulo-vargas/skrrt"))
                 .andExpect(status().isOk());
     }
 }
