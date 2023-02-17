@@ -8,7 +8,7 @@ public class Main {
         Student student = new Student("Denys", "Florindo");
         System.out.println("Hello world!");
 
-//        DenysFlorindo.sayName();    // Era usado no exercicio GIT
+//        DenysFlorindo.sayName();    // Era usado no exercicio GIT.
 
     }
 }

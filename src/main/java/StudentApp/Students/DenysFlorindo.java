@@ -3,7 +3,7 @@ import StudentApp.Student;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
-/*// Linhas abaixo para os exercicios de GIT
+/*// Linhas abaixo para os exercicios de GIT.
 public class DenysFlorindo {
     public static void sayName() {
         Student student = new Student("Denys", "Florindo");
@@ -18,7 +18,8 @@ public class DenysFlorindo {
     }
 }*/
 
-// Linhas abaixo para os exercicios de CI-CD
+
+// Linhas abaixo para os exercicios de CI-CD.
 import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DenysFlorindo {
