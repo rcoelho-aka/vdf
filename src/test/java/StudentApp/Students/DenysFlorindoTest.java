@@ -9,16 +9,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(RicardoCoelho.class)
-class RicardoCoelhoTest {
+@WebMvcTest(DenysFlorindo.class)
+class DenysFlorindoTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    void shouldReturnRicardoCoelho() throws Exception {
-        mockMvc.perform(get("/ricardo-coelho"))
+    void shouldReturnDenysFlorindo() throws Exception {
+        mockMvc.perform(get("/denys-florindo"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("{'firstName':'Ricardo', 'lastName':'Coelho'}"));
+                .andExpect(content().json("{'firstName':'Denys', 'lastName':'Florindo'}"));
     }
 }

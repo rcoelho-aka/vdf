@@ -11,4 +11,9 @@ public class StudentController {
 		return "Greetings from Spring Boot!";
 	}
 
+	@GetMapping("/test")
+	public String test() {
+		return "Hello test!";
+	}
+
 }
